@@ -1,8 +1,9 @@
 {
   "name": "@bytestruct/foundry-eslint",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
-  "files": ["src", "index.mjs"],
+  "repository": "github:Fyorl/foundry-eslint",
+  "files": ["src", "index.mjs", "LICENSE"],
   "exports": {
     ".": "./index.mjs"
   },
