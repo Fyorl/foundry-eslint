@@ -1,0 +1,23 @@
+{
+  "name": "@bytestruct/foundry-eslint",
+  "version": "1.0.0",
+  "license": "MIT",
+  "files": ["src", "index.mjs"],
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "peerDependencies": {
+    "@stylistic/eslint-plugin": ">=5",
+    "eslint": ">=10",
+    "eslint-plugin-jsdoc": ">=62",
+    "eslint-plugin-perfectionist": ">=5",
+    "globals": ">=17"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "eslint": "^10.1.0",
+    "eslint-plugin-jsdoc": "^62.8.0",
+    "eslint-plugin-perfectionist": "^5.7.0",
+    "globals": "^17.4.0"
+  }
+}
