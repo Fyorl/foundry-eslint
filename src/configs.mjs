@@ -26,7 +26,7 @@ export const recommended = [
       "@stylistic/function-call-spacing": "warn",
       "@stylistic/indent": ["warn", 2, { SwitchCase: 1 }],
       "@stylistic/key-spacing": "warn",
-      "@stylistic/keyword-spacing": ["warn", { overrides: { catch: { after: false, before: true } } }],
+      "@stylistic/keyword-spacing": "warn",
       "@stylistic/linebreak-style": ["warn", "unix"],
       "@stylistic/lines-between-class-members": "warn",
       "@stylistic/new-parens": ["warn", "always"],
@@ -59,10 +59,13 @@ export const recommended = [
       "@stylistic/wrap-iife": ["warn", "inside"],
       "array-callback-return": "warn",
       "constructor-super": "error",
+      curly: ["warn", "multi-line"],
       "default-param-last": "warn",
       "dot-notation": "warn",
       eqeqeq: ["warn", "smart"],
-      "foundry/no-spaces-in-union-types": "warn",
+      "foundry/jsdoc-no-spaces-around-optional-param-equals": "warn",
+      "foundry/no-spaces-around-default-param-equals": "warn",
+      "foundry/require-arrow-braces": "warn",
       "foundry/require-method-separator": "warn",
       "foundry/sort-object-keys": "warn",
       "foundry/space-in-control-flow-parens": "warn",
@@ -77,10 +80,10 @@ export const recommended = [
       "jsdoc/check-values": "warn",
       "jsdoc/empty-tags": "warn",
       "jsdoc/implements-on-classes": "warn",
-      "jsdoc/multiline-blocks": ["warn", { noSingleLineBlocks: true }],
+      "jsdoc/multiline-blocks": ["warn", { noSingleLineBlocks: true, singleLineTags: ["inheritDoc", "override"] }],
       "jsdoc/no-bad-blocks": "warn",
       "jsdoc/require-description": ["warn", { checkConstructors: false }],
-      "jsdoc/require-hyphen-before-param-description": ["warn", "never"],
+      "jsdoc/require-hyphen-before-param-description": ["warn", "never", { tags: { property: "never" } }],
       "jsdoc/require-jsdoc": "warn",
       "jsdoc/require-param": "warn",
       "jsdoc/require-param-name": "warn",
@@ -93,6 +96,7 @@ export const recommended = [
       "jsdoc/require-returns-type": "warn",
       "jsdoc/require-yields": "warn",
       "jsdoc/require-yields-check": "warn",
+      "jsdoc/type-formatting": ["warn", { objectTypeBracketSpacing: " ", stringQuotes: "double", unionSpacing: "" }],
       "max-len": ["warn", {
         code: 120,
         ignoreStrings: true,
@@ -129,7 +133,15 @@ export const recommended = [
       "no-lone-blocks": "warn",
       "no-lonely-if": "warn",
       "no-misleading-character-class": "warn",
-      "no-mixed-operators": "warn",
+      "no-mixed-operators": ["warn", {
+        groups: [[
+          "+", "-", "*", "/", "%", "**",
+          "&", "|", "^", "~", "<<", ">>", ">>>",
+          "==", "!=", "===", "!==", ">", ">=", "<", "<=",
+          "&&", "||", "??",
+          "in", "instanceof"
+        ]]
+      }],
       "no-multi-str": "warn",
       "no-new-func": "warn",
       "no-new-object": "warn",
@@ -186,6 +198,10 @@ export const recommended = [
       "perfectionist/sort-imports": ["warn", {
         groups: ["builtin", "external", "internal", "parent", "sibling", "index"],
         newlinesBetween: 1
+      }],
+      "perfectionist/sort-modules": ["warn", {
+        groups: ["export-class", "class", "export-function", "function"],
+        type: "alphabetical"
       }],
       "prefer-numeric-literals": "warn",
       "prefer-object-spread": "warn",

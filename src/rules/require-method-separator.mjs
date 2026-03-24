@@ -30,13 +30,22 @@ class RequireMethodSeparator extends BaseRule {
   /* -------------------------------------------- */
 
   /**
-   * Build the AST visitor listener map.
-   * @returns {Rule.RuleListener}
-   * @protected
+   * Whether a node is a top-level function declaration (exported or not).
+   * @param {object} node
+   * @returns {boolean}
    */
+  static #isFunction(node) {
+    return (node.type === "FunctionDeclaration")
+      || ((node.type === "ExportNamedDeclaration") && (node.declaration?.type === "FunctionDeclaration"));
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
   _listeners() {
     return {
       "ClassBody > MethodDefinition": this.#onClassMethod.bind(this),
+      "Program > ExportNamedDeclaration": this.#onTopLevelFunction.bind(this),
       "Program > FunctionDeclaration": this.#onTopLevelFunction.bind(this)
     };
   }
@@ -53,7 +62,10 @@ class RequireMethodSeparator extends BaseRule {
   #check(node, kind) {
     const siblings = node.parent.body;
     const index = siblings.indexOf(node);
-    const hasPrior = siblings.slice(0, index).some(s => s.type === node.type);
+    const isFunc = RequireMethodSeparator.#isFunction(node);
+    const hasPrior = siblings.slice(0, index).some(s => {
+      return isFunc ? RequireMethodSeparator.#isFunction(s) : s.type === node.type;
+    });
     if ( !hasPrior ) return;
     if ( !this.#hasSeparatorBefore(node) ) {
       this.context.report({
@@ -94,10 +106,12 @@ class RequireMethodSeparator extends BaseRule {
   /* -------------------------------------------- */
 
   /**
-   * Handle top-level function declaration.
+   * Handle top-level function declaration (exported or not). Both FunctionDeclaration and ExportNamedDeclaration
+   * wrapping a FunctionDeclaration are treated as siblings of the same kind.
    * @param {object} node
    */
   #onTopLevelFunction(node) {
+    if ( (node.type === "ExportNamedDeclaration") && (node.declaration?.type !== "FunctionDeclaration") ) return;
     this.#check(node, "function");
   }
 

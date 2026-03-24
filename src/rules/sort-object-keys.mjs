@@ -25,11 +25,7 @@ class SortObjectKeys extends BaseRule {
 
   /* -------------------------------------------- */
 
-  /**
-   * Build the AST visitor listener map.
-   * @returns {Rule.RuleListener}
-   * @protected
-   */
+  /** @override */
   _listeners() {
     return {
       ObjectExpression: this.#onObjectExpression.bind(this)

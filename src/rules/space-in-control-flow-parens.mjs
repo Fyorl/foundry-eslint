@@ -5,28 +5,6 @@
 import { BaseRule } from "./base.mjs";
 
 /**
- * Return true if the token is a close-parenthesis.
- * @param {AST.Token|null} [token]
- * @returns {boolean}
- */
-function isCloseParen(token) {
-  return token?.value === ")";
-}
-
-/* -------------------------------------------- */
-
-/**
- * Return true if the token is an open-parenthesis.
- * @param {AST.Token|null} [token]
- * @returns {boolean}
- */
-function isOpenParen(token) {
-  return token?.value === "(";
-}
-
-/* -------------------------------------------- */
-
-/**
  * Enforce spaces inside the parentheses of control-flow statements.
  * Applies to: if, for, while, switch, and catch.
  */
@@ -47,11 +25,7 @@ class SpaceInControlFlowParens extends BaseRule {
 
   /* -------------------------------------------- */
 
-  /**
-   * Build the AST visitor listener map.
-   * @returns {Rule.RuleListener}
-   * @protected
-   */
+  /** @override */
   _listeners() {
     return {
       CatchClause: this.#onCatchClause.bind(this),
@@ -209,3 +183,25 @@ class SpaceInControlFlowParens extends BaseRule {
 /* -------------------------------------------- */
 
 export default SpaceInControlFlowParens.rule();
+
+/* -------------------------------------------- */
+
+/**
+ * Return true if the token is a close-parenthesis.
+ * @param {AST.Token|null} [token]
+ * @returns {boolean}
+ */
+function isCloseParen(token) {
+  return token?.value === ")";
+}
+
+/* -------------------------------------------- */
+
+/**
+ * Return true if the token is an open-parenthesis.
+ * @param {AST.Token|null} [token]
+ * @returns {boolean}
+ */
+function isOpenParen(token) {
+  return token?.value === "(";
+}
