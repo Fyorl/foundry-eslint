@@ -46,7 +46,7 @@ class RequireArrowBraces extends BaseRule {
       fix: fixer => {
         const bodyText = this.src.getText(node.body);
         const bodyIndent = " ".repeat(node.body.loc.start.column);
-        const closeIndent = " ".repeat(node.loc.start.column);
+        const closeIndent = this.src.lines[arrowToken.loc.start.line - 1].match(/^\s*/)[0];
         return fixer.replaceTextRange(
           [arrowToken.range[1], node.body.range[1]],
           ` {\n${bodyIndent}return ${bodyText};\n${closeIndent}}`

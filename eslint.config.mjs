@@ -1,3 +1,6 @@
 import foundry from "./index.mjs";
 
-export default foundry.configs.recommended;
+export default [
+  { ignores: ["test/fixtures/**"] },
+  ...foundry.configs.recommended
+];
